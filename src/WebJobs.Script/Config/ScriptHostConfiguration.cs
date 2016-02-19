@@ -51,5 +51,8 @@ namespace Microsoft.Azure.WebJobs.Script
         /// specified by <see cref="RootLogPath"/>.
         /// </summary>
         public bool FileLoggingEnabled { get; set; }
+
+        // Resolve appsetting values in the function bindings. 
+        public INameResolver AppSettings { get; set; }
     }
 }

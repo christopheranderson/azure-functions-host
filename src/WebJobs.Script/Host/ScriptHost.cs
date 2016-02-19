@@ -26,7 +26,7 @@ namespace Microsoft.Azure.WebJobs.Script
         private Action<FileSystemEventArgs> _restart;
         private FileSystemWatcher _fileWatcher;
         private int _directoryCountSnapshot;
-        
+
         protected ScriptHost(ScriptHostConfiguration scriptConfig) 
             : base(scriptConfig.HostConfig)
         {
@@ -141,9 +141,26 @@ namespace Microsoft.Azure.WebJobs.Script
             ScriptConfig.HostConfig.TypeLocator = new TypeLocator(types);
             ScriptConfig.HostConfig.NameResolver = new NameResolver();
 
+
+            GetConfigFromBindings(functions, ScriptConfig.HostConfig);
+
             Functions = functions;
         }
+        
+        // Bindings may require us to update JobHostConfiguration. 
+        private void GetConfigFromBindings(Collection<FunctionDescriptor> functions, JobHostConfiguration hostConfig)
+        {
+            JobHostConfigurationBuilder builder = new JobHostConfigurationBuilder(hostConfig);
 
+            foreach (var func in functions)
+            {
+                foreach (var metadata in func.Metadata.InputBindings.Concat(func.Metadata.OutputBindings))
+                {
+                    metadata.ApplyToConfig(builder);
+                }
+            }
+            builder.Done();
+        }
 
         public static ScriptHost Create(ScriptHostConfiguration scriptConfig = null)
         {
@@ -163,7 +180,7 @@ namespace Microsoft.Azure.WebJobs.Script
             return scriptHost;
         }
 
-        private static bool TryParseFunctionMetadata(string functionName, JObject jObject, out FunctionMetadata functionMetadata)
+        private static bool TryParseFunctionMetadata(string functionName, INameResolver appsettingResolver, JObject jObject, out FunctionMetadata functionMetadata)
         {
             functionMetadata = new FunctionMetadata
             {
@@ -181,7 +198,7 @@ namespace Microsoft.Azure.WebJobs.Script
                     foreach (JObject binding in bindingArray)
                     {
                         BindingMetadata bindingMetadata = null;
-                        if (TryParseBindingMetadata(binding, out bindingMetadata))
+                        if (TryParseBindingMetadata(binding, appsettingResolver, out bindingMetadata))
                         {
                             functionMetadata.InputBindings.Add(bindingMetadata);
                             if (bindingMetadata.IsTrigger)
@@ -199,7 +216,7 @@ namespace Microsoft.Azure.WebJobs.Script
                     foreach (JObject binding in bindingArray)
                     {
                         BindingMetadata bindingMetadata = null;
-                        if (TryParseBindingMetadata(binding, out bindingMetadata))
+                        if (TryParseBindingMetadata(binding, appsettingResolver, out bindingMetadata))
                         {
                             functionMetadata.OutputBindings.Add(bindingMetadata);
                         }
@@ -217,7 +234,7 @@ namespace Microsoft.Azure.WebJobs.Script
             return true;
         }
 
-        private static bool TryParseBindingMetadata(JObject binding, out BindingMetadata bindingMetadata)
+        private static bool TryParseBindingMetadata(JObject binding, INameResolver appsettingResolver, out BindingMetadata bindingMetadata)
         {
             bindingMetadata = null;
             string bindingTypeValue = (string)binding["type"];
@@ -226,6 +243,10 @@ namespace Microsoft.Azure.WebJobs.Script
             {
                 switch (bindingType)
                 {
+                    case BindingType.EventHubTrigger:
+                    case BindingType.EventHub:
+                        bindingMetadata = binding.ToObject<EventHubBindingMetadata>();
+                        break;
                     case BindingType.QueueTrigger:
                     case BindingType.Queue:
                         bindingMetadata = binding.ToObject<QueueBindingMetadata>();
@@ -254,6 +275,9 @@ namespace Microsoft.Azure.WebJobs.Script
                 };
 
                 bindingMetadata.Type = bindingType;
+
+
+                appsettingResolver.ResolverAllProperties(bindingMetadata);
 
                 return true;
             }
@@ -287,7 +311,7 @@ namespace Microsoft.Azure.WebJobs.Script
                     name = Path.GetFileNameWithoutExtension(scriptDir);
                 }
 
-                if (!TryParseFunctionMetadata(name, jObject, out metadata))
+                if (!TryParseFunctionMetadata(name, config.AppSettings, jObject, out metadata))
                 {
                     // TODO: Handle error
                     continue;

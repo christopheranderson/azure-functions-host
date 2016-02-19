@@ -3,6 +3,10 @@
 
 using System;
 using Microsoft.Azure.WebJobs.Script;
+using System.IO;
+using Newtonsoft.Json;
+using Microsoft.Azure.WebJobs;
+using System.Collections.Generic;
 
 namespace WebJobs.Script.Host
 
@@ -19,11 +23,38 @@ namespace WebJobs.Script.Host
 
             ScriptHostConfiguration config = new ScriptHostConfiguration()
             {
-                RootScriptPath = rootPath
+                RootScriptPath = rootPath,
+                FileLoggingEnabled = true
             };
+
+            // For local execution, allow reading secrets from a file. 
+            string secretsFile = Path.Combine(rootPath, "secrets.json");
+            if (File.Exists(secretsFile))
+            {
+                string json = File.ReadAllText(secretsFile);
+                var dict = JsonConvert.DeserializeObject<IDictionary<string, string>>(json);
+                config.AppSettings = new DefaultNameResolver(dict);
+            }
 
             ScriptHostManager scriptHostManager = new ScriptHostManager(config);
             scriptHostManager.RunAndBlock();
+        }
+
+
+        // Adapt from Dictionary to INameResolver
+        class DefaultNameResolver : INameResolver
+        {
+            private readonly IDictionary<string, string> _dict;
+
+            public DefaultNameResolver(IDictionary<string, string> dict)
+            {
+                _dict = dict;
+            }
+
+            public string Resolve(string name)
+            {
+                return _dict[name];
+            }
         }
     }
 }
