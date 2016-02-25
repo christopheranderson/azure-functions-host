@@ -23,17 +23,17 @@ namespace WebJobs.Script.Host
 
             ScriptHostConfiguration config = new ScriptHostConfiguration()
             {
-                RootScriptPath = rootPath,
-                FileLoggingEnabled = true
+                RootScriptPath = rootPath
             };
 
             // For local execution, allow reading secrets from a file. 
+            // This is an optional place to get secrets, useful in local testing. 
             string secretsFile = Path.Combine(rootPath, "secrets.json");
             if (File.Exists(secretsFile))
             {
                 string json = File.ReadAllText(secretsFile);
                 var dict = JsonConvert.DeserializeObject<IDictionary<string, string>>(json);
-                config.AppSettings = new DefaultNameResolver(dict);
+                config.AppSettings = new FileSecretNameResolver(dict);
             }
 
             ScriptHostManager scriptHostManager = new ScriptHostManager(config);
@@ -42,11 +42,11 @@ namespace WebJobs.Script.Host
 
 
         // Adapt from Dictionary to INameResolver
-        class DefaultNameResolver : INameResolver
+        class FileSecretNameResolver : INameResolver
         {
             private readonly IDictionary<string, string> _dict;
 
-            public DefaultNameResolver(IDictionary<string, string> dict)
+            public FileSecretNameResolver(IDictionary<string, string> dict)
             {
                 _dict = dict;
             }

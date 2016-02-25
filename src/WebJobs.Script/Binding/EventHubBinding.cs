@@ -10,13 +10,13 @@ namespace Microsoft.Azure.WebJobs.Script.Binding
 {
     public class EventHubBinding : FunctionBinding
     {
-        private readonly BindingTemplate _queueNameBindingTemplate;
+        private readonly BindingTemplate _eventHubNameBindingTemplate;
 
         public EventHubBinding(ScriptHostConfiguration config, string name, string eventHubName, FileAccess fileAccess, bool isTrigger) : 
             base(config, name, "eventhub", fileAccess, isTrigger)
         {
             EventHubName = eventHubName;
-            _queueNameBindingTemplate = BindingTemplate.FromString(EventHubName);
+            _eventHubNameBindingTemplate = BindingTemplate.FromString(EventHubName);
         }
 
         public string EventHubName { get; private set; }
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.WebJobs.Script.Binding
         {
             get
             {
-                return _queueNameBindingTemplate.ParameterNames.Any();
+                return _eventHubNameBindingTemplate.ParameterNames.Any();
             }
         }
 
@@ -34,7 +34,7 @@ namespace Microsoft.Azure.WebJobs.Script.Binding
             string eventHubName = this.EventHubName;
             if (context.BindingData != null)
             {
-                eventHubName = _queueNameBindingTemplate.Bind(context.BindingData);
+                eventHubName = _eventHubNameBindingTemplate.Bind(context.BindingData);
             }
 
             eventHubName = Resolve(eventHubName);

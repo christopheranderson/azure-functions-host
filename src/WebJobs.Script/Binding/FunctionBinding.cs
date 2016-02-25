@@ -61,7 +61,7 @@ namespace Microsoft.Azure.WebJobs.Script.Binding
                             if (!eventHubBindingMetadata.IsTrigger &&
                                 fileAccess != FileAccess.Write)
                             {
-                                throw new InvalidOperationException("Queue binding can only be used for output.");
+                                throw new InvalidOperationException("EventHub binding can only be used for output.");
                             }
                             bindings.Add(new EventHubBinding(config, name, eventHubBindingMetadata.Path, fileAccess, bindingMetadata.IsTrigger));
                             break;

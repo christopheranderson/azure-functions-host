@@ -15,6 +15,7 @@ namespace Microsoft.Azure.WebJobs.Script
             FileWatchingEnabled = true;
             RootScriptPath = Environment.CurrentDirectory;
             RootLogPath = Path.Combine(Path.GetTempPath(), "Functions");
+            AppSettings = new DefaultAppSettingResolver();
         }
 
         /// <summary>
@@ -52,7 +53,9 @@ namespace Microsoft.Azure.WebJobs.Script
         /// </summary>
         public bool FileLoggingEnabled { get; set; }
 
-        // Resolve appsetting values in the function bindings. 
+        /// <summary>
+        /// Resolver for resolve the %key% values in Function.Json. These naturally resolve to an AppSetting/Env var. 
+        /// </summary>        
         public INameResolver AppSettings { get; set; }
     }
 }
