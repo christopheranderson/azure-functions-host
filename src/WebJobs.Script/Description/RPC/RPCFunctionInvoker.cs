@@ -43,7 +43,7 @@ namespace Microsoft.Azure.WebJobs.Script.Description
             _inputBindings = inputBindings;
             _outputBindings = outputBindings;
 
-            _rpcHost = new RPCHost("tcp://127.0.0.1:5559");
+            _rpcHost = new RPCHost("tcp://127.0.0.1:5559", ">tcp://127.0.0.1:5557");
         }
         
         protected override async Task InvokeCore(object[] parameters, FunctionInvocationContext context)
@@ -78,7 +78,7 @@ namespace Microsoft.Azure.WebJobs.Script.Description
                 
             }
 
-            FunctionExecution results = await _rpcHost.SendInvocation(request);
+            FunctionExecution results = await _rpcHost.SendInvocation(request, context.TraceWriter);
 
             await ProcessOutputBindingsAsync(_outputBindings, input, context.Binder, bindingData, exeuctionContext, results);
 
