@@ -826,6 +826,8 @@ namespace Microsoft.Azure.WebJobs.Script
                     return ScriptType.FSharp;
                 case "dll":
                     return ScriptType.DotNetAssembly;
+                case "rpc":
+                    return ScriptType.RPC;
                 default:
                     return ScriptType.Unknown;
             }
@@ -842,6 +844,7 @@ namespace Microsoft.Azure.WebJobs.Script
                     new NodeFunctionDescriptorProvider(this, ScriptConfig),
 #endif
                     new DotNetFunctionDescriptorProvider(this, ScriptConfig),
+                    new RPCFunctionDescriptorProvider(this, ScriptConfig),
 #if FEATURE_POWERSHELL
                     new PowerShellFunctionDescriptorProvider(this, ScriptConfig)
 #endif

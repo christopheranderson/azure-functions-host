@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package microsoft.azure.functions.messages;
+
+option java_package = "com.microsoft.azure.functions.messages";
+
+message FunctionExecution {
+    string function_name = 1;
+    string invocation_id = 2;
+    string host_id = 3;
+    map<string,bytes> input = 15;
+    map<string,bytes> output = 16;
+}
