@@ -67,7 +67,7 @@ namespace Microsoft.Azure.WebJobs.Script.Description
             request.FunctionName = _functionName;
             foreach(var item in (Dictionary<string, object>)exeuctionContext["bindings"])
             {
-                if (item.GetType() == typeof(String))
+                if (item.Value.GetType() == typeof(String))
                 {
                     request.Input.Add(item.Key, ByteString.CopyFromUtf8(item.Value.ToString()));
                 } else if (item.Value.GetType().FullName.Contains("Generic.Dictionary"))
