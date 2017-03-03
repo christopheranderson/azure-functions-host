@@ -43,7 +43,7 @@ namespace Microsoft.Azure.WebJobs.Script.Description
             _inputBindings = inputBindings;
             _outputBindings = outputBindings;
 
-            _rpcHost = new RPCHost("tcp://127.0.0.1:5559", ">tcp://127.0.0.1:5557");
+            _rpcHost = new RPCHost("tcp://127.0.0.1:5559", "tcp://127.0.0.1:5557");
         }
         
         protected override async Task InvokeCore(object[] parameters, FunctionInvocationContext context)

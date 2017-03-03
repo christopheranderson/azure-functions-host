@@ -26,8 +26,10 @@ namespace Microsoft.Azure.WebJobs.Script.Description.RPC
 
         public RPCHost(string requestAddress, string pullAddress)
         {
-            reqSocket = new RequestSocket(requestAddress);
-            pullSocket = new PullSocket(pullAddress);
+            reqSocket = new RequestSocket();
+            reqSocket.Bind(requestAddress);
+            pullSocket = new PullSocket();
+            pullSocket.Bind(pullAddress);
             traceWriters = new Dictionary<String, TraceWriter>();
             logThread = new Thread(ProcessLogs);
             logThread.Start();
