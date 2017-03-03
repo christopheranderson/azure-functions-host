@@ -18,18 +18,21 @@ namespace Microsoft.Azure.WebJobs.Script.Description.RPC
     [CLSCompliant(false)]
     public class RPCHost
     {
-        RequestSocket reqSocket;
-        PullSocket pullSocket;
+        static RequestSocket reqSocket;
+        static PullSocket pullSocket;
         Dictionary<String, TraceWriter> traceWriters;
         Thread logThread;
 
 
         public RPCHost(string requestAddress, string pullAddress)
         {
-            reqSocket = new RequestSocket();
-            reqSocket.Bind(requestAddress);
-            pullSocket = new PullSocket();
-            pullSocket.Bind(pullAddress);
+            if (reqSocket == null)
+            {
+                reqSocket = new RequestSocket();
+                reqSocket.Bind(requestAddress);
+                pullSocket = new PullSocket();
+                pullSocket.Bind(pullAddress);
+            }
             traceWriters = new Dictionary<String, TraceWriter>();
             logThread = new Thread(ProcessLogs);
             logThread.Start();
