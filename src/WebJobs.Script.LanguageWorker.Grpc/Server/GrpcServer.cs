@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Azure.WebJobs.Script.Abstractions;
-using Microsoft.Azure.WebJobs.Script.Grpc.Messages;
+using Microsoft.Azure.WebJobs.Script.Protobuf.Messages;
 
-namespace Microsoft.Azure.WebJobs.Script.Grpc
+namespace Microsoft.Azure.WebJobs.Script.Protobuf
 {
     public class GrpcServer : IRpcServer, IDisposable
     {

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Azure.WebJobs.Script.Grpc.Messages;
+using Microsoft.Azure.WebJobs.Script.Protobuf.Messages;
 
 namespace Microsoft.Azure.WebJobs.Script.Eventing.Rpc
 {

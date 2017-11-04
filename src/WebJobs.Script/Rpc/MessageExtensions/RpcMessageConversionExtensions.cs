@@ -8,10 +8,10 @@ using System.Text;
 using Google.Protobuf;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Script.Grpc.Messages;
+using Microsoft.Azure.WebJobs.Script.Protobuf.Messages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RpcDataType = Microsoft.Azure.WebJobs.Script.Grpc.Messages.TypedData.DataOneofCase;
+using RpcDataType = Microsoft.Azure.WebJobs.Script.Protobuf.Messages.TypedData.DataOneofCase;
 
 namespace Microsoft.Azure.WebJobs.Script.Rpc
 {

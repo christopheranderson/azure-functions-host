@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using Microsoft.Azure.WebJobs.Script.Grpc.Messages;
+using Microsoft.Azure.WebJobs.Script.Protobuf.Messages;
 using Microsoft.Azure.WebJobs.Script.Rpc;
 
 namespace Microsoft.Azure.WebJobs.Script.Rpc

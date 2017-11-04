@@ -56,7 +56,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebJobs.Script.Grpc\WebJobs.Script.Grpc.csproj" />
+    <ProjectReference Include="..\WebJobs.Script.Grpc\WebJobs.Script.LanguageWorker.Protobuf.csproj" />
+    <ProjectReference Include="..\WebJobs.Script.LanguageWorker.Grpc\WebJobs.Script.LanguageWorker.Grpc.csproj" />
+    <ProjectReference Include="..\WebJobs.Script.LanguageWorker\WebJobs.Script.LanguageWorker.csproj" />
   </ItemGroup>
 
 </Project>

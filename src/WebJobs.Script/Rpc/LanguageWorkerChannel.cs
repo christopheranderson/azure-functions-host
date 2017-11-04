@@ -14,12 +14,12 @@ using Microsoft.Azure.WebJobs.Script.Description;
 using Microsoft.Azure.WebJobs.Script.Eventing;
 using Microsoft.Azure.WebJobs.Script.Eventing.Rpc;
 using Microsoft.Azure.WebJobs.Script.Extensions;
-using Microsoft.Azure.WebJobs.Script.Grpc.Messages;
+using Microsoft.Azure.WebJobs.Script.Protobuf.Messages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-using MsgType = Microsoft.Azure.WebJobs.Script.Grpc.Messages.StreamingMessage.ContentOneofCase;
+using MsgType = Microsoft.Azure.WebJobs.Script.Protobuf.Messages.StreamingMessage.ContentOneofCase;
 
 namespace Microsoft.Azure.WebJobs.Script.Rpc
 {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 15.0.0.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{16351B76-87CA-4A8C-80A1-3DD83A0C4AA6}"
 EndProject
@@ -374,7 +374,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Script.Scaling.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Script.Tests.Integration", "test\WebJobs.Script.Tests.Integration\WebJobs.Script.Tests.Integration.csproj", "{EDDDAED1-0E37-4ED7-A595-63F686DEE90A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Script.Grpc", "src\WebJobs.Script.Grpc\WebJobs.Script.Grpc.csproj", "{38920568-003E-448F-963B-41B739D1E01C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Script.LanguageWorker.Protobuf", "src\WebJobs.Script.Grpc\WebJobs.Script.LanguageWorker.Protobuf.csproj", "{38920568-003E-448F-963B-41B739D1E01C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJobs.Script.LanguageWorker", "src\WebJobs.Script.LanguageWorker\WebJobs.Script.LanguageWorker.csproj", "{8B79EC4E-1652-4222-BB56-3250918F9CB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJobs.Script.LanguageWorker.Grpc", "src\WebJobs.Script.LanguageWorker.Grpc\WebJobs.Script.LanguageWorker.Grpc.csproj", "{87B2BEA2-33B5-4894-92CA-B5C443E8AB3C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -417,6 +421,14 @@ Global
 		{38920568-003E-448F-963B-41B739D1E01C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38920568-003E-448F-963B-41B739D1E01C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38920568-003E-448F-963B-41B739D1E01C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B79EC4E-1652-4222-BB56-3250918F9CB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B79EC4E-1652-4222-BB56-3250918F9CB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B79EC4E-1652-4222-BB56-3250918F9CB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B79EC4E-1652-4222-BB56-3250918F9CB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87B2BEA2-33B5-4894-92CA-B5C443E8AB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87B2BEA2-33B5-4894-92CA-B5C443E8AB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87B2BEA2-33B5-4894-92CA-B5C443E8AB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87B2BEA2-33B5-4894-92CA-B5C443E8AB3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -488,6 +500,8 @@ Global
 		{137FB7AA-B192-4766-B86A-C813D94B1995} = {AFB0F5F7-A612-4F4A-94DD-8B69CABF7970}
 		{EDDDAED1-0E37-4ED7-A595-63F686DEE90A} = {AFB0F5F7-A612-4F4A-94DD-8B69CABF7970}
 		{38920568-003E-448F-963B-41B739D1E01C} = {16351B76-87CA-4A8C-80A1-3DD83A0C4AA6}
+		{8B79EC4E-1652-4222-BB56-3250918F9CB4} = {16351B76-87CA-4A8C-80A1-3DD83A0C4AA6}
+		{87B2BEA2-33B5-4894-92CA-B5C443E8AB3C} = {16351B76-87CA-4A8C-80A1-3DD83A0C4AA6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {85400884-5FFD-4C27-A571-58CB3C8CAAC5}
