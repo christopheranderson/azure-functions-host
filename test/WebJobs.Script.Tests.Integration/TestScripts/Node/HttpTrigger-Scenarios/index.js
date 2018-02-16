@@ -49,6 +49,10 @@ module.exports = function (context, req) {
             context.res = { status: 204, body: null, headers: { 'content-type': 'application/json' } };
             break;
 
+        case "undefinedbody":
+            context.res = { status: 204, headers: { 'Access-Control-Allow-Origin': '*' } }
+            break;
+
         case "appInsights-Success":
             logAppInsightsPayload(context, req.body.value);
             context.res = {

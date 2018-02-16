@@ -40,7 +40,7 @@ namespace Microsoft.Azure.WebJobs.Script.Binding
             {
                 // for script language functions (e.g. PowerShell, BAT, etc.) the value
                 // will be a Stream which we need to convert to string
-                ConvertStreamToValue((Stream)content, DataType.String, ref content);
+                ConvertStreamToValue((Stream)content, context.DataType, ref content);
             }
 
             IActionResult response = CreateResult(request, content);

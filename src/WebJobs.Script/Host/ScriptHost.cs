@@ -380,7 +380,7 @@ namespace Microsoft.Azure.WebJobs.Script
                     _hostConfig.StorageConnectionString = null;
                 }
 
-                var serverImpl = new FunctionRpcService(EventManager);
+                var serverImpl = new FunctionRpcService(EventManager, _loggerFactory.CreateLogger($"{ScriptConstants.LogCategoryWorker}.RPC"));
                 var server = new GrpcServer(serverImpl);
 
                 // TODO: async initialization of script host - hook into startasync method?
